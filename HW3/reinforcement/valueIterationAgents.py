@@ -46,11 +46,15 @@ class ValueIterationAgent(ValueEstimationAgent):
 
         # Write value iteration code here
         "*** YOUR CODE HERE ***"
-        for i in range(self.iterations):
+        for _ in range(self.iterations):
+            tmpValues = util.Counter()
             for state in self.mdp.getStates():
                 action = self.getAction(state)
-                if action is not None:
-                    self.values[state] = self.getQValue(state, action)
+                if action is None:
+                    tmpValues[state] = 0
+                else:
+                    tmpValues[state] = self.getQValue(state, action)
+            self.values = tmpValues
 
     def getValue(self, state):
         """
